@@ -1,0 +1,104 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Bootstrap imports -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/popup.css" />
+    <script src="js/script.js"></script>
+    <script src="popup.js"></script>
+    <script src ="autofill.js"></script>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+  <script>
+     function turnOnOff(){
+    //add a check here to see if the data  matches whats stored for master acct
+    //1) display the rest of data (in div userinfo)
+    //2) popup telling user htat password is wrong
+    document.getElementById("userinfo").style.display = "";
+
+
+  }
+  </script>
+</head>
+<body>
+  <!--This should only appear the first time you oepn the extension- might be hard to test.-->
+  <a> Hello! This is your first time using our password manager. Let's get you started with a master account to protect the rest of your data:</a>
+  <form>
+    <fieldset>
+      <label for="username">
+        Username:</label>
+      <input type="text" 
+             name="uname" 
+             id="username" 
+             required /><br />
+             
+      <label for="password">Password</label>
+      <input type="text" 
+             name="Password" 
+             id="password" 
+             required /><br />
+  </fieldset>
+  <button id="signup" onclick = "turnOnOff()">Signup</button>
+  </form>
+
+
+<a> You are not logged in, please enter your username and password below:</a>
+<form>
+  <fieldset>
+    <label for="username">
+      Username:</label>
+    <input type="text" 
+           name="uname" 
+           id="username" 
+           required /><br />
+           
+    <label for="password">Password</label>
+    <input type="text" 
+           name="Password" 
+           id="password" 
+           required /><br />
+</fieldset>
+<button id="login" onclick = "turnOnOff()">Log In</button>
+</form>
+
+ 
+<div id="userinfo" style="display: none">
+<h1>AutoFill Form</h1>
+<form>
+    
+    <fieldset>
+        <legend><b>WIP FOR AUTOFILL</b>
+      </legend>
+        <label for="username">
+          Username:</label>
+        <input type="text" 
+               name="uname" 
+               id="username" 
+               required /><br />
+               
+        <label for="password">Password</label>
+        <input type="text" 
+               name="Password" 
+               id="password" 
+              
+               required /><br />
+    </fieldset>
+   
+
+  
+  <button id="autofill">Autofill</button>
+  <button id="reset">Reset</button>
+  <button id="save">Save</button>
+  <button id="load">Load</button>
+</form>
+</div> 
+  
+
+</body>
+<script src="popup.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/script.js"></script>
+
+</html>
