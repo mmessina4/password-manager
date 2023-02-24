@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+    <body>
+<script type="module" >
+console.log("here");
+
+
+
+
+// Import the functions you need from the SDKs you need
+//import  {initializeApp} from 'firebase/app';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+import { getDatabase, ref,set,get,child, onValue} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCGDsmYtD2zsTPDhRBQ7yH7kf3i_YB1wb4",
+  authDomain: "new-password-ext.firebaseapp.com",
+  projectId: "new-password-ext",
+  storageBucket: "new-password-ext.appspot.com",
+  messagingSenderId: "175884123641",
+  appId: "1:175884123641:web:be239743c7b343ef56d128",
+  measurementId: "G-FWWRNZD5SF",
+  databaseURL: "https://new-password-ext-default-rtdb.firebaseio.com/"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+//user functions
+
+//writes the info to the database
+function writeUserData(userId, fname, name, uname,password){
+const database = getDatabase(app);
+console.log("here");
+
+const reference = ref(database, 'username/' +userId);
+onValue(reference, (snapshot) => {
+  const data = snapshot.val();
+  console.log("true");
+  
+
+
+});
+
+
+//insert data
+
+
+set(reference, {
+  fname: fname,
+  name: name, 
+  username: uname,
+  password: password
+
+  
+  
+});
+/*get(child(reference, `username/'${userId}`)).then((snapshot) => { //find the path, if a snapshot exists and tell its data
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+*/
+}
+saveButton.addEventListener("click", buttonClick);
+
+
+console.log("loaded successfully")
+
+function buttonClick(){
+var n = 6;
+const id = n+1;  
+const fname1 = document.getElementById("fname").value 
+const name1 = document.getElementById("name").value;
+const username1 = document.getElementById("username").value;
+const pass = document.getElementById("pwd").value;
+n = id+1
+
+writeUserData(id, fname1, name1, username1, pass);
+console.log("saved");
+}
+
+//insbtn.addEventListener('click', InsertData);
+writeUserData("000","me","hofstra","me123","myPasswordexample");
+writeUserData("001","Kanon","website","Kanon123","Liella!");
+writeUserData("002","User","website","user88","passwordex");
+writeUserData("003","Eva","website","Eva44","cheer");
+//writeUserData("Kanon","KanonCanon");
+writeUserData("004","abc","website","abc123","1234");
+writeUserData("005","ab1c","website","ab1c","1234");
+writeUserData("006","Jan", "website","JumpforJ", "JJ");
+
+//var refer = database().ref();
+
+//ref.on("value", function(snapshot) {
+ //  console.log(snapshot.val());
+//}, function (error) {
+//   console.log("Error: " + error.code);
+//});
+
+const dbRef = ref(getDatabase());
+get(child(dbRef, `username/`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+
+//fill table
+var idnum = 0;
+var tbody = document.getElementById("tbody1");
+function addItemToTable(fname,webname,username,pass){
+    let trow = document.createElement("tr");
+    let td1 = document.createElement("td");
+    let td2 = document.createElement("td");
+    let td3 = document.createElement("td");
+    let td4 = document.createElement("td");
+    let td5 = document.createElement("td");
+
+    td1.innerHTML = ++idnum;
+    td2.innerHTML = ++fname;
+    td3.innerHTML = ++webname;
+    td4.innerHTML = ++username;
+    td5.innerHTML = ++pass;
+
+    trow.appendChild(td1);
+    trow.appendChild(td2);
+    trow.appendChild(td3);
+    trow.appendChild(td4);
+    trow.appendChild(td5);
+
+    tbody.appendChild(trow);
+   
+
+}
+
+
+addItemToTable("000","me","hofstra","me123","myPasswordexample");
+console.log(addItemToTable("000","me","hofstra","me123","myPasswordexample"));
+
+function AddAllItemstoTable(TheUser){
+  idnum = 0;
+  tbody.innerHTML="";
+  TheUser.forEach(element => {
+    addItemToTable(element.fname1,element.name1,element.username1,element.pass);
+  });
+
+
+}
+
+function GetAllDataOnce(){
+  const dbRefer = ref(getDatabase());
+console.log("start");
+get(child(dbRef, `username/`))
+
+    .then((snapshot)=>{
+        console.log("start");
+        if (snapshot.exists()) {
+        var users = [];
+
+        snapshot.forEach(childSnapshot =>{
+            users.push(childSnapshot.val());
+        });
+
+        AddAllItemstoTable(users);
+    }
+    }).catch((error)=>
+    console.error(error));
+}
+
+window.onload = GetAllDataOnce()
+
+</script>
+
+
+
+//make a function addUserData to grab the contents from the textbox and save them to the database
+
+
+
+
+
+<h1>hello</h1>
+<h2>Welcome to 'Background.HTML' for Senior Design</h2>
+<h3> Please type your name here for testing purposes</h3>
+<input type="text" id = "fname" name="fname">
+<input type="text" id = "name" name="name">
+<input type = "text" id = "username" name = "username">
+<input type = "text" id = "pwd" name = "pwd">
+<button id = "saveButton"> Save Data</button>
+
+
+
+<table>
+    <thead>
+        <th> fname</th>
+        <th> webname</th>
+        <th> psw</th>
+        <th> uname</th>
+
+
+
+
+
+
+</thead>
+
+<tbody id="tbody1"></tbody>
+
+
+</table>
+
+
+
+</body>
+
+</html>
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+</html>
